@@ -9,10 +9,36 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"regexp"
 )
 
 func main() {
-	resp, err := http.Get("http://www.zhenai.com/zhenghun")
+	url := "http://www.zhenai.com/zhenghun"
+	getPageContent(url)
+}
+
+func getPageContent(url string) {
+	resp, err := http.Get(url)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		fmt.Println("Error: status code", resp.StatusCode)
+		return
+	}
+
+	all, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		panic(err)
+	}
+	//fmt.Printf("%s\n", all)
+	printCityList(all)
+}
+
+func getPageContentForDecode(url string) {
+	resp, err := http.Get(url)
 	if err != nil {
 		panic(err)
 	}
@@ -41,4 +67,16 @@ func determineEncoding(r io.Reader) encoding.Encoding {
 	}
 	e, _, _ := charset.DetermineEncoding(bytes, "")
 	return e
+}
+
+func printCityList(contents []byte) {
+	re := regexp.MustCompile(`<a href="(http://www.zhenai.com/zhenghun/[0-9a-z]+)"[^>]*>([^<]+)</a>`)
+	matches := re.FindAllSubmatch(contents, -1)
+	for _, m := range matches {
+		//for _, subMatch := range m {
+		//	fmt.Printf("%s ", subMatch)
+		//}
+		fmt.Printf("City: %s, URL:%s\n", m[2], m[1])
+	}
+	fmt.Printf("Matcher fount: %d\n", len(matches))
 }
