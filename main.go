@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"go_crawler/fetcher"
+	"go_crawler/zhenai/parser"
 )
 
 func main() {
@@ -11,5 +12,5 @@ func main() {
 	if err != nil {
 		fmt.Printf("fetch url err: %v\n", err)
 	}
-	fmt.Println(string(contents))
+	parser.ParseCityList1(contents)
 }
