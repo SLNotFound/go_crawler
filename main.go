@@ -1,14 +1,15 @@
 package main
 
 import (
-	"go_crawler/engine"
-	"go_crawler/zhenai/parser"
+	"fmt"
+	"go_crawler/fetcher"
 )
 
 func main() {
 	url := "http://www.zhenai.com/zhenghun"
-	engine.Run(engine.Request{
-		Url:        url,
-		ParserFunc: parser.ParseCityList,
-	})
+	contents, err := fetcher.Fetch(url)
+	if err != nil {
+		fmt.Printf("fetch url err: %v\n", err)
+	}
+	fmt.Println(string(contents))
 }
