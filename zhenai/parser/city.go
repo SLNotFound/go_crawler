@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"go_crawler/engine"
 	"regexp"
 )
@@ -19,6 +20,10 @@ func ParseCity(contents []byte) engine.ParseResult {
 			Url:        string(m[1]),
 			ParserFunc: engine.NilParser,
 		})
+	}
+
+	for _, v := range result.Requests {
+		fmt.Println(v)
 	}
 
 	return result

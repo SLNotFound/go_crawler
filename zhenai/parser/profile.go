@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"fmt"
 	"go_crawler/engine"
 	"go_crawler/model"
 	"regexp"
@@ -56,18 +55,4 @@ func extractString(contents []byte, re *regexp.Regexp) string {
 	} else {
 		return ""
 	}
-}
-
-func TestParser(contents []byte) engine.ParseResult {
-	profile := model.Profile{}
-
-	age, err := strconv.Atoi(extractString(contents, ageReg))
-	if err != nil {
-		profile.Age = age
-	}
-	fmt.Println(profile)
-	result := engine.ParseResult{
-		Items: []interface{}{profile},
-	}
-	return result
 }
