@@ -12,14 +12,14 @@ func ParseCityList1(contents []byte) model.City {
 	matches := re.FindAllSubmatch(contents, -1)
 
 	result := model.City{}
-	limit := 1
+	//limit := 2
 	for _, match := range matches {
 		result.CityName = append(result.CityName, string(match[2]))
-		result.CityUrl = append(result.CityUrl, string(match[1])+"\n")
-		limit--
-		if limit == 0 {
-			break
-		}
+		result.CityUrl = append(result.CityUrl, string(match[1]))
+		//limit--
+		//if limit == 0 {
+		//	break
+		//}
 	}
 
 	return result

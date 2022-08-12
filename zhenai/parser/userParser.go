@@ -14,8 +14,8 @@ func ParseUserList1(contents []byte) model.User {
 	user := model.User{}
 
 	for _, match := range matches {
-		user.UserUrl = append(user.UserUrl, string(match[1])+"\n")
-		user.UserName = append(user.UserName, string(match[2])+"\n")
+		user.UserUrl = append(user.UserUrl, string(match[1]))
+		user.UserName = append(user.UserName, string(match[2]))
 	}
 
 	//for _, v := range user.UserUrl {
