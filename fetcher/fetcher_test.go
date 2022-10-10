@@ -6,7 +6,7 @@ import (
 )
 
 func TestFetch(t *testing.T) {
-	url := " http://album.zhenai.com/u/1141336149"
+	url := "http://album.zhenai.com/u/90774182"
 	fetch, err := Fetch(url)
 	if err != nil {
 		fmt.Printf("fetch url err: %v\n", err)
